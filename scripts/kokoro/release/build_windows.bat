@@ -9,12 +9,13 @@ powershell /c "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtoc
 
 set PATH=C:\python37;%PATH%
 
-%BAZELISK% build //src:bazel.exe
-mkdir output
-copy bazel-bin\src\bazel.exe output\bazel.exe
+rem %BAZELISK% build //src:bazel.exe
+rem mkdir output
+rem copy bazel-bin\src\bazel.exe output\bazel.exe
 
-output\bazel build -c opt --copt=-w --host_copt=-w --stamp --embed_label %RELEASE_NAME% src/bazel scripts/packages/bazel.zip
+rem output\bazel build -c opt --copt=-w --host_copt=-w --stamp --embed_label %RELEASE_NAME% src/bazel scripts/packages/bazel.zip
 
 mkdir artifacts
-move bazel-bin\src\bazel artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe
-move bazel-bin\scripts\packages\bazel.zip artifacts\bazel-%RELEASE_NAME%-windows-x86_64.zip
+move %BAZELISK% artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe
+rem move bazel-bin\src\bazel artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe
+rem move bazel-bin\scripts\packages\bazel.zip artifacts\bazel-%RELEASE_NAME%-windows-x86_64.zip
