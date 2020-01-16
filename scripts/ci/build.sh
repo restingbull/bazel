@@ -142,10 +142,9 @@ function release_to_github() {
   local rc=$(get_release_candidate)
 
   if [ -n "${release_name}" ] && [ -z "${rc}" ]; then
-    local github_token="$(gsutil cat gs://bazel-trusted-encrypted-secrets/github-trusted-token.enc | \
-        gcloud kms decrypt --project bazel-public --location global --keyring buildkite --key github-trusted-token --ciphertext-file - --plaintext-file -)"
+    local github_token="$(gsutil cat gs://bazel-testing/meteorcloudy-github-token-kokoro-test.token)"
 
-    GITHUB_TOKEN="${github_token}" github-release "bazelbuild/bazel" "${release_name}" "" "$(get_release_page)" "${artifact_dir}/*"
+    GITHUB_TOKEN="${github_token}" github-release "meteorcloudy/bazel" "${release_name}" "" "$(get_release_page)" "${artifact_dir}/*"
   fi
 }
 
@@ -185,7 +184,7 @@ function release_to_gcs() {
       release_path="${release_name}/rc${rc}"
     fi
     create_index_html "${artifact_dir}" > "${artifact_dir}/index.html"
-    gsutil -m cp "${artifact_dir}/**" "gs://bazel/${release_path}"
+    gsutil -m cp "${artifact_dir}/**" "gs://bazel-testing/${release_path}"
   fi
 }
 
@@ -245,7 +244,7 @@ function merge_previous_dists() {
   local distribution="$1"
   # Download the metadata info from previous distribution
   mkdir -p previous
-  gsutil -m cp -r "gs://bazel-apt/dists" "./previous"
+  gsutil -m cp -r "gs://bazel-apt-testing/dists" "./previous"
 
   # Merge Packages and Packages.gz file
   cat "previous/dists/${distribution}/jdk1.8/binary-amd64/Packages" >> "dists/${distribution}/jdk1.8/binary-amd64/Packages"
@@ -350,7 +349,7 @@ EOF
 
   merge_previous_dists "${distribution}"
 
-  gsutil -m cp -r dists pool "gs://bazel-apt"
+  gsutil -m cp -r dists pool "gs://bazel-apt-testing"
 }
 
 function release_to_apt() {
