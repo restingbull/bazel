@@ -27,6 +27,8 @@ chmod +x "${BAZELISK}"
 #     scripts/packages/with-jdk/install.sh
 
 mkdir artifacts
-cp "${BAZELISK}" "artifacts/bazel-${RELEASE_NAME}-darwin-x86_64"
 # cp "bazel-bin/src/bazel"  "artifacts/bazel-${RELEASE_NAME}-darwin-x86_64"
 # cp "bazel-bin/scripts/packages/with-jdk/install.sh" "artifacts/bazel-${RELEASE_NAME}-installer-darwin-x86_64.sh"
+
+wget https://releases.bazel.build/2.0.0/release/bazel-2.0.0-darwin-x86_64 -O "artifacts/bazel-${RELEASE_NAME}-darwin-x86_64"
+wget https://releases.bazel.build/2.0.0/release/bazel-2.0.0-installer-darwin-x86_64.sh -O "artifacts/bazel-${RELEASE_NAME}-installer-darwin-x86_64.sh"

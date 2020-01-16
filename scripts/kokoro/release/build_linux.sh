@@ -28,10 +28,16 @@ chmod +x "${BAZELISK}"
 #     bazel-distfile.zip
 
 mkdir artifacts
-cp "${BAZELISK}" "artifacts/bazel-${RELEASE_NAME}-linux-x86_64"
 # cp "bazel-bin/src/bazel" "artifacts/bazel-${RELEASE_NAME}-linux-x86_64"
 # cp "bazel-bin/scripts/packages/with-jdk/install.sh" "artifacts/bazel-${RELEASE_NAME}-installer-linux-x86_64.sh"
 # cp "bazel-bin/scripts/packages/debian/bazel-debian.deb" "artifacts/bazel_${RELEASE_NAME}-linux-x86_64.deb"
 # cp "bazel-bin/scripts/packages/debian/bazel.dsc" "artifacts/bazel_${RELEASE_NAME}.dsc"
 # cp "bazel-bin/scripts/packages/debian/bazel.tar.gz" "artifacts/bazel_${RELEASE_NAME}.tar.gz"
 # cp "bazel-bin/bazel-distfile.zip" "artifacts/bazel-${RELEASE_NAME}-dist.zip"
+
+wget https://releases.bazel.build/2.0.0/release/bazel-2.0.0-linux-x86_64 -O "artifacts/bazel-${RELEASE_NAME}-linux-x86_64"
+wget https://releases.bazel.build/2.0.0/release/bazel-2.0.0-installer-linux-x86_64.sh -O "artifacts/bazel-${RELEASE_NAME}-installer-linux-x86_64.sh"
+wget https://releases.bazel.build/2.0.0/release/bazel_2.0.0-linux-x86_64.deb -O "artifacts/bazel_${RELEASE_NAME}-linux-x86_64.deb"
+wget https://releases.bazel.build/2.0.0/release/bazel_2.0.0.dsc -O "artifacts/bazel_${RELEASE_NAME}.dsc"
+wget https://releases.bazel.build/2.0.0/release/bazel_2.0.0.tar.gz -O "artifacts/bazel_${RELEASE_NAME}.tar.gz"
+wget https://releases.bazel.build/2.0.0/release/bazel-2.0.0-dist.zip -O "artifacts/bazel-${RELEASE_NAME}-dist.zip"

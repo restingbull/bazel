@@ -16,6 +16,8 @@ rem copy bazel-bin\src\bazel.exe output\bazel.exe
 rem output\bazel build -c opt --copt=-w --host_copt=-w --stamp --embed_label %RELEASE_NAME% src/bazel scripts/packages/bazel.zip
 
 mkdir artifacts
-move %BAZELISK% artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe
 rem move bazel-bin\src\bazel artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe
 rem move bazel-bin\scripts\packages\bazel.zip artifacts\bazel-%RELEASE_NAME%-windows-x86_64.zip
+
+powershell /c "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadFile('https://releases.bazel.build/2.0.0/release/bazel-2.0.0-windows-x86_64.exe', 'artifacts\bazel-%RELEASE_NAME%-windows-x86_64.exe')"
+powershell /c "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadFile('https://releases.bazel.build/2.0.0/release/bazel-2.0.0-windows-x86_64.zip', 'artifacts\bazel-%RELEASE_NAME%-windows-x86_64.zip')"
