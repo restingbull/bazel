@@ -18,20 +18,15 @@ import com.google.devtools.build.android.aapt2.Aapt2Exception;
 import com.google.devtools.build.android.resources.JavaIdentifierValidator.InvalidJavaIdentifier;
 import com.google.devtools.build.lib.worker.WorkerProtocol.WorkRequest;
 import com.google.devtools.build.lib.worker.WorkerProtocol.WorkResponse;
-import com.google.devtools.common.options.EnumConverter;
-import com.google.devtools.common.options.Option;
-import com.google.devtools.common.options.OptionDocumentationCategory;
-import com.google.devtools.common.options.OptionEffectTag;
-import com.google.devtools.common.options.OptionsBase;
-import com.google.devtools.common.options.OptionsParser;
-import com.google.devtools.common.options.OptionsParsingException;
-import com.google.devtools.common.options.ShellQuotedParamsFilePreProcessor;
+import com.google.devtools.common.options.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -177,6 +172,11 @@ public class ResourceProcessorBusyBox {
   }
 
   private static int runPersistentWorker() throws Exception {
+    Arrays.stream(
+            Logger.getGlobal()
+                    .getHandlers())
+            .filter(h -> h instanceof ConsoleHandler)
+            .forEach(h -> Logger.getGlobal().removeHandler(h));
     while (true) {
       try {
         WorkRequest request = WorkRequest.parseDelimitedFrom(System.in);
